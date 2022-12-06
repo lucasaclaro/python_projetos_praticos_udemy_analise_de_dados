@@ -84,3 +84,61 @@ print(data_base['Valuation ($B)'])
 
 
 #https://www.udemy.com/course/python-para-analise-de-dados/learn/lecture/31425290#overview
+
+#############
+
+
+data_base = pd.read_csv('data/StudentsPerformance+(1).csv')
+#print(data_base)
+
+data_base_shape = data_base.shape #linhas e colunas
+#print(data_base_shape)
+
+data_base_head = data_base.head() #5 primeiras linhas
+#print(data_base_head)
+
+data_base_columns = data_base.columns #nomes das colunas
+#print(data_base_columns)
+
+data_base_nulls = data_base.isnull().sum()#qtd de campos são nulos
+#print(data_base_nulls)
+
+data_base_uniques = data_base.nunique()#qtd de 'opções' por coluna
+#print(data_base_uniques)
+
+data_base_duplicated = data_base.duplicated().sum()#qtd de campos duplicados
+#print(data_base_duplicated)
+
+data_base_statistic = data_base.describe()
+#print(data_base_statistic) #std é desvio padrão
+
+data_base_gender = data_base['gender'].value_counts(normalize=True) * 100 #Porcentagem de pessoas do sexo masculino e feminino
+#print(data_base_gender)
+
+data_base_race = data_base['race/ethnicity'].value_counts(normalize=True) * 100 #Porcentagem de pessoas pela raça
+#print(data_base_race)
+
+data_base_parental = data_base['parental level of education'].value_counts(normalize=True) * 100 #Porcentagem de pessoas pelo nível de escolaridade dos pais
+#print(data_base_parental)
+
+data_base_test_preparation = data_base['test preparation course'].value_counts(normalize=True) * 100 #Porcentagem de pessoas que fizeram curso preparatório
+#print(data_base_test_preparation)
+
+#sns.boxplot(data=data_base, x='math score', y='gender') #gráfico relacionando sexo e tipo de prova
+#plt.show()
+
+#print(data_base.groupby(by=['gender']).describe()['math score'].reset_index()) #verificar as notas pelo sexo
+
+#análises da nota do aluno relacionado com o grau de educação dos pais
+#print(data_base.groupby(by=['parental level of education']).describe()['math score'].reset_index()) #verificar as notas pelo sexo
+#sns.boxplot(data=data_base, x='math score', y='parental level of education')
+#plt.show()
+
+#análises da nota do aluno relacionado com o fato de ter feito curso preparatório
+#print(data_base.groupby(by=['test preparation course']).describe()['math score'].reset_index()) #verificar as notas pelo sexo
+#sns.boxplot(data=data_base, x='math score', y='test preparation course')
+#plt.show()
+
+#sns.scatterplot(data=data_base, x='math score', y='writing score') #comparando dois eixos
+#plt.show()
+
