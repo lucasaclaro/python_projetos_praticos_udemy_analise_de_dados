@@ -175,3 +175,37 @@ grid_graficos = grid_graficos.fig.suptitle('Evolução da renda per capital por 
 plt.subplots_adjust(top=0.92)
 plt.show()
 
+
+
+###### Acções de energia
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import openpyxl
+
+data_base = pd.read_excel('data/Dados_Empresas_Energia.xlsx')
+#print(data_base.head())
+
+data_base.set_index('Data', inplace=True) #colocar a data no index
+#print(data_base.head())
+
+#Petrobras
+plt.style.use('seaborn-darkgrid')
+plt.figure(figsize=(16, 7))
+plt.title('Análise de ações de empresas de energia', loc='left', fontsize=18, fontweight=200)
+plt.xlabel('Período')
+plt.ylabel('Preço de fechamento (R$)')
+plt.plot(data_base.index, data_base['Petrobras'], color='#008c4a', linewidth=4, alpha=0.7)
+plt.text(data_base.index[-1], data_base['Petrobras'].tail(1), 'Petrobras', color='#008c4a', size='large', horizontalalignment='left')
+
+for coluna in data_base.columns[1:]:
+    plt.plot(data_base.index, data_base[coluna], color='gray', linewidth=2, alpha=0.7)
+    plt.text(data_base.index[-1], data_base[coluna].tail(1), coluna, color='gray', size='large',
+             horizontalalignment='left')
+
+plt.show()
+
+
+
