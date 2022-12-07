@@ -142,3 +142,36 @@ data_base_test_preparation = data_base['test preparation course'].value_counts(n
 #sns.scatterplot(data=data_base, x='math score', y='writing score') #comparando dois eixos
 #plt.show()
 
+
+
+################################# PIB
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import openpyxl
+
+data_base = pd.read_excel('data/Dados_Pib.xlsx')
+#print(data_base.shape)
+#print(data_base.head())
+pib_por_ano = data_base.groupby(by=['Territorialidades', 'Ano']).mean() #agrupar dados do pib por territorialidade e por ano
+#print(pib_por_ano)
+
+
+###Sistemas de grids
+
+cor_fundo = '#f5f5f5'
+
+#criar grid
+grid_graficos = sns.FacetGrid(data_base, col='Territorialidades', hue='Territorialidades', col_wrap=5)
+
+#adicionar um gráfico em cada espaço disponível
+#grid_graficos = grid_graficos.map(plt.plot, 'Ano', 'PIB per capita')
+
+#adicionar um sombra
+grid_graficos = grid_graficos.map(plt.fill_between, 'Ano', 'PIB per capita', alpha=0.1).set_titles('{col_name}')
+grid_graficos = grid_graficos.fig.suptitle('Evolução da renda per capital por Estado')
+plt.subplots_adjust(top=0.92)
+plt.show()
+
